@@ -73,16 +73,6 @@ void slist_add_node_at(SList *list, int32_t data, uint32_t index) {
         );
 }
 
-static Node * _create_node_(int32_t data) {
-  Node *node = (Node *) malloc(sizeof(Node));
-  if (node == NULL) {
-    return NULL;
-  }
-  node->data = data;
-  node->next = NULL;
-  return node;
-}
-
 uint32_t slist_length(const SList *list) {
   assert(list != NULL);
   return list->length;
@@ -130,11 +120,6 @@ void slist_del_node_at(SList *list, uint32_t index) {
   }
   _delete_node_(node);
   list->length --;
-}
-
-static void _delete_node_(Node *node) {
-  assert(node != NULL);
-  free(node);
 }
 
 Node * slist_get_node(SList* list, uint32_t index) {

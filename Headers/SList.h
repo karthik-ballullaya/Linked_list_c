@@ -4,16 +4,10 @@
 *******************/
 
 #include <stdint.h>
+#include "Node.h"
 
 #ifndef SLIST_H_INCLUDED
 #define SLIST_H_INCLUDED
-
-typedef struct _node_ Node;
-
-struct _node_ {
-  int32_t           data;
-  Node*             next;
-};
 
 struct _single_linked_list_ {
   Node*             head;
@@ -24,12 +18,10 @@ struct _single_linked_list_ {
 typedef struct _single_linked_list_ SList; 
 
 SList               slist_init(void);
-static Node *       _create_node_(int32_t);
 void                slist_add_node_head(SList*, int32_t);
 void                slist_append(SList*, int32_t);
 void                slist_add_node_at(SList*, int32_t, uint32_t);
 uint8_t             unique_slist_add_node_at(SList*, int32_t, uint32_t);
-static void         _delete_node_(Node *);
 void                slist_del_node_head(SList*);
 void                slist_del_node_tail(SList*);
 void                slist_del_node_at(SList*, uint32_t);

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "SList.h"
+#include "DList.h"
 
 void test_slist_methods(void) {
   /*****
@@ -118,11 +119,87 @@ void test_slist_methods(void) {
   assert(list->length == 0);
 }
 
+void test_dlist_methods() {
+  /*****
+   * Test initialization method
+   *****/
+  DList d = dlist_init();
+  DList *list = &d;
+  assert((list->head == NULL) && (list->tail == NULL) && (list->length == 0));
+  /*****
+   * Test dlist_length method
+   *****/
+  assert(dlist_length(list) == 0);
+  /*****
+   * Test dlist_add_node_head method
+   *****/
+  dlist_add_node_head(list, 40);
+  dlist_add_node_head(list, 30);
+  /*****
+   * Test dlist_add_node_tail method
+   *****/
+  dlist_add_node_tail(list, 20);
+  dlist_add_node_tail(list, 10);
+  assert(dlist_length(list) == 4);
+  /*****
+   * Test dlist_get_node method
+   *****/
+  uint32_t expected[] = {30, 40, 20, 10, 0};
+  for (uint8_t i = 0; i < 4; i++) {
+    Node *node = dlist_get_node(list, i);
+    assert(node->data == expected[i]);
+  }
+  /*****
+   * Test dlist_del_node_head method
+   *****/
+  dlist_del_node_head(list);
+  assert(dlist_length(list) == 3);
+  /*****
+   * Test dlist_del_node_tail method
+   *****/
+  dlist_del_node_tail(list);
+  assert(dlist_length(list) == 2);
+  expected[0] = 40; expected[1] = 20;
+  for (uint8_t i = 0; i < 2; i++) {
+    Node *node = dlist_get_node(list, i);
+    assert(node->data == expected[i]);
+  }
+  /*****
+   * Test dlist_add_node_at method
+   *****/
+  dlist_add_node_at(list, 10, 1);
+  dlist_add_node_at(list, 30, 0);
+  dlist_add_node_at(list, 50, 4);
+  expected[0] = 30; expected[1] = 40; expected[2] = 10; expected[3] = 20; expected[4] = 50;
+  for (uint8_t i = 0; i < 5; i++) {
+    Node *node = dlist_get_node(list, i);
+    assert(node->data == expected[i]);
+  }
+  /*****
+   * Test dlist_del_node_at method
+   *****/
+  dlist_del_node_at(list, 1);
+  dlist_del_node_at(list, 0);
+  dlist_del_node_at(list, 2);
+  expected[0] = 10; expected[1] = 20;
+  for (uint8_t i = 0; i < 2; i++) {
+    Node *node = dlist_get_node(list, i);
+    assert(node->data == expected[i]);
+  }
+  /*****
+   * Test dlist_lookup method
+   *****/
+  dlist_add_node_at(list, 50, 2);
+  assert(dlist_lookup(list, 10) == 1);
+  assert(dlist_lookup(list, 20) == 1);
+  assert(dlist_lookup(list, 30) == 0);
+}
+
 int main(void) {
   printf("********** Testing slist methods **********\n");
   test_slist_methods();
-  // printf("********** Testing dlist methods **********\n");
-  // test_dlist_methods();
+  printf("********** Testing dlist methods **********\n");
+  test_dlist_methods();
   printf("**********    End of testing     **********\n");
   return 0;
 }

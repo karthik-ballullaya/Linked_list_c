@@ -2,7 +2,7 @@
 
 #### Single Linked list Features implemented
 * Add node at any location either by index or at head or tail
-* Delete node from any location either by index or from head or tail
+* Delete node from any location either by index or at head or tail
 * Create unique linked list
 * Find and element in a linked list
 * Get the length of the linked list
@@ -12,3 +12,9 @@
 * Check if two lists are equal
 * Set operations on list such as union and intersection
 * Function to clear the list
+
+#### Double Linked list Features implemented
+* Add node at any location either by index or at head or tail
+* Delete node from any location either by index or at head or tail
+* Look-up an element in the list
+* Get node from a specific location
